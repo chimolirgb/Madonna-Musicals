@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+<!-- html -->
+{% block content %}
+
+<!-- Bootstrap -->
+{%load bootstrap4%}
+<!-- static -->
+{% load static%}
+<!-- content -->
+
+<div class="container">
+  <h1 class="text-center mt-5">Maddonah Concert Vault </h1>
+
+  {%for category in categories%}
+  <div class="accordion" id="accordionExample">
+    <div class="card mt-3">
+      <div class="card-header d-flex justify-content-between " id="{{category.id}}">
+        <h2 class="mb-0">
+          <button
+            class="btn  btn-outline-dark text-left"
+            type="button"
+            data-toggle="collapse"
+            data-target="#{{category}}"
+            aria-expanded="true"
+            aria-controls="{{category}}"
+          >
+            {{category.name}}
+          </button>
+        </h2>
+        <h2 class="mb-0">
+      <a href="{%url 'musics_list' category.id%}" class="btn btn-outline-success">
+        View
+      </a>
+        </h2>
+      </div>
+
+      <div
+        id="{{category}}"
+        class="collapse show"
+        aria-labelledby="{{category.id}}"
+        data-parent="#{{category}}"
+      >
+        <div class="card-body">
+    {{category.description}}
+        </div>
+      </div>
+    </div>
+  </div>
+    {%endfor%}
+
+  </div>
+
+  {% endblock %}
+</div>

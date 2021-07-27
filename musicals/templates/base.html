@@ -1,0 +1,46 @@
+{% load static%}
+{% load bootstrap4%}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  {% if title %}
+  <title>Music! - {{title}}</title>
+  {% else %}
+    <title> Music </title>
+  {% endif %}
+  {% block styles %}
+    {% bootstrap_css %}
+  {% endblock %}
+
+
+</head>
+<body style="background-color: #DCDCDC; font-family: 'Dancing Script', cursive;">
+    {% include "navbar.html" %}
+
+    {% block content %}  {%endblock%}
+
+
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+ {% bootstrap_javascript %}
+
+ <script>
+    $(document).ready(function(){
+        $("#but").click(function(){
+            $("#but").toggle(100);
+        });
+    });
+    </script>
+{% endblock %}
+
+</body>
+</html>

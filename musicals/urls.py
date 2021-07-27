@@ -14,7 +14,7 @@ urlpatterns=[
     
     
     path('category/',views.category,name='category'),
-    path('music_list/<int:id>',views.music_list,name='music_list'),
+    path('musics_list/<int:id>',views.musics_list,name='musics_list'),
     path('music_delete/<int:id>',views.music_delete,name='music_delete'),
     path('music_update/<int:id>',views.music_update,name='music_update'),
 

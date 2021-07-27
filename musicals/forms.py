@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Music,Profile,Category
 
-class CardForm(forms.ModelForm):  
+class MusicForm(forms.ModelForm):  
     class Meta:
         model = Music
         fields = ('title','photo','category','content')

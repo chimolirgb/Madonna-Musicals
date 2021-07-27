@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Profile,Category
+from .models import Music, Profile,Category
 from .forms import ProfileForm,MusicForm,UpdateUserProfileForm,UpdateUserForm,CategoryForm
 
 from django.contrib.auth.models import User
@@ -47,7 +47,7 @@ def category(request):
     return render(request,'categories.html',{'form':form})
 
 
-def music_list(request,id):
+def musics_list(request,id):
     category =  Category.objects.get(id=id)
     musics = Music.objects.filter(category=category)
  
@@ -55,7 +55,7 @@ def music_list(request,id):
         "category":category,
         "musics":musics
     }
-    return render(request,'category_cards.html',ctx)
+    return render(request,'category_musics.html',ctx)
 
 def music_update(request,id):
     music=Music.objects.get(id=id)
@@ -69,10 +69,10 @@ def music_update(request,id):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-        return redirect('cards_list',id=music.category_id)
+        return redirect('musics_list',id=music.category_id)
   
 
-    return render(request,'update_card.html',{'form':form})
+    return render(request,'update_music.html',{'form':form})
     
 def music_delete(request,id):
     Music = Music.objects.get(id=id)
@@ -80,7 +80,7 @@ def music_delete(request,id):
   
     music.delete()
     
-    return redirect('cards_list',id=music.category_id)
+    return redirect('musics_list',id=music.category_id)
   
    
 
@@ -161,7 +161,7 @@ def add_music(request, category):
 
 
 
-def delete_music(request, card):
+def delete_music(request, music):
     current_music=Music.objects.get(id=music)
     category=current_music.category
     current_music.delete()

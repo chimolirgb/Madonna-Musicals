@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+<!-- html -->
+{% block content %}
+
+<!-- Bootstrap -->
+{%load bootstrap4%}
+<!-- static -->
+{% load static%}
+<!-- content -->
+
+<div class="container-fluid m-5">
+
+    <h2 class="text-center ">{{category.name}}</h2>
+
+
+
+     <div class="row m-5">
+        {% for music in musics  %}
+        <div class=" col-md-4 card-container">
+    <div class="box">
+        <div class="imgBx">
+            <img src="{{music.photo.url}}" alt="">
+        </div>
+        <div class="content">
+            <h4>{{music.title}}?</h4>
+            <p>{{music.content}}</p>
+            <br>
+            <span>Add on :{{music.posted.date}}</span>
+            <br>
+            <span>Last Updated:{{music.modified.date}}</span>
+
+            <div class="mt-5">
+                <a href="{%url 'music_update' music.id%}"  class="btn btn-primary ml-2"> Update</a>
+                <a href="{%url 'music_delete' music.id%}"  class="btn btn-danger"> Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+        {%empty%}
+        <h4 class="text-center">There are no songs in thsi category at the momement</h4>
+     
+        {% endfor %}
+    </div> 
+
+ 
+</div>
+
+  {% endblock %}
+</div>

@@ -1,0 +1,22 @@
+{% extends  'base.html'%}
+{%load bootstrap4%}
+
+{% block content %}
+
+<div class="container">
+    <h2>My Music</h2>
+
+    <a class="btn btn-primary" href="{% url 'post' category=category.id %}">Add Music</a>
+
+    {%for music in musics%}
+    <ul>
+        <li>{{music.title}}</li>
+    </ul>
+    {%endfor%}
+
+
+
+</div>
+
+
+{%endblock%}
