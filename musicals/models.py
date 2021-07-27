@@ -56,3 +56,27 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Music(models.Model):
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE,related_name='music')
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=200)
+    photo = CloudinaryField('image',null="true")
+    posted = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    category= models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
+  
+
+    class Meta:
+        ordering = ["-pk"]
+        
+    def save_music(self):
+        self.save()
+
+    def delete_music(self):
+        self.delete()
+
+    def __str__(self):
+        return self.title
+    
