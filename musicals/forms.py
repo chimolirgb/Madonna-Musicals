@@ -1,18 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Music,Profile,Category
+from .models import Music,Profile,Category,Comment
 
 class MusicForm(forms.ModelForm):  
     class Meta:
         model = Music
         fields = ('title','photo','category','content')
-        
-        
+               
 class CategoryForm(forms.ModelForm):  
     class Meta:
         model = Category
         fields = ('name','description')
-
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -35,3 +33,8 @@ class UpdateUserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'photo', 'bio']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment',]

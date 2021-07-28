@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'musicals',
     'bootstrap4',
     'rest_framework',
+    'embed_video',
 ]
 
 MIDDLEWARE = [

@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
 from cloudinary.models import CloudinaryField 
+from embed_video.fields import EmbedVideoField
+
 
 # Create your models here.
 class Profile(models.Model):
@@ -38,7 +40,6 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
-
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
@@ -57,7 +58,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
 class Music(models.Model):
     user = models.ForeignKey('Profile', on_delete=models.CASCADE,related_name='music')
     title = models.CharField(max_length=50)
@@ -67,7 +67,6 @@ class Music(models.Model):
     modified = models.DateTimeField(auto_now=True)
     category= models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
   
-
     class Meta:
         ordering = ["-pk"]
         
@@ -80,3 +79,24 @@ class Music(models.Model):
     def __str__(self):
         return self.title
     
+class Comment(models.Model):
+    comment = models.TextField()
+    user = models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='comment')
+    music = models.ForeignKey('Music',on_delete=models.CASCADE,related_name='comment')
+    category= models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
+
+    class Meta:
+        ordering = ["-pk"]
+
+    def __str__(self):
+        return f'{self.user.name} Music'
+
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+
+    def __str__(self):
+        return f'{self.follower} Follow'
+
+class Item(models.Model):
+    video = EmbedVideoField() 

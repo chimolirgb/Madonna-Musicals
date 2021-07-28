@@ -1,17 +1,12 @@
 {% extends  'base.html' %}
 {% load bootstrap4  %}
-
-
 {%block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-7" style="margin-top:10px">
             <div class="media-body">
-
-
                 <img class="rounded-circle" style=" height: 165px; width: 165px;" src="{{ user.profile.photo.url }}"
                     alt="" style="float : left;">
-
                 <div class="details" style="float:right;">
                     <div class="profile d-flex justify-content-around">
                         <h5 style="margin-right: 20px; margin-left: 20px;">{{ user.username}}</h5>
@@ -20,8 +15,12 @@
                             data-target=".bd-example-modal-md"><strong>Edit
                                 Profile</strong></a>
                     </div>
-
-
+                    <div class="post-details mt-3 mb-3">
+                        <span class="mr-5"> <strong>{{ user.profile.followers.count }}</strong> followers</span>
+                        <span class="mr-5"> <strong>{{ user.profile.following.count }}</strong> following</span>
+                    </div>
+                    <p style="margin-left: 20px;">{{ user.profile.bio}}</p>
+                </div>
                     <p style="margin-left: 20px;">{{ user.profile.bio}}</p>
                 </div>
                 <hr>
@@ -37,7 +36,6 @@
                     </div>
                     {% endfor %}
                 </div>
-
             </div>
             <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                 aria-hidden="true">
@@ -54,11 +52,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
-
-
-
 {%endblock %}

@@ -1,10 +1,9 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Music, Profile,Category
-from .forms import ProfileForm,MusicForm,UpdateUserProfileForm,UpdateUserForm,CategoryForm
-
+from .models import Music, Profile,Category,Comment,Follow,Item
+from .forms import ProfileForm,MusicForm,UpdateUserProfileForm,UpdateUserForm,CategoryForm,CommentForm
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,11 +30,9 @@ def post(request):
 
     return render(request,'post.html',{'form':form})
 
-
 def category(request):
     if request.method == 'POST':
         form =CategoryForm(request.POST,request.FILES)
-
         if form.is_valid():
             category = form.save(commit=False)
             category.user = request.user.profile
@@ -46,22 +43,34 @@ def category(request):
 
     return render(request,'categories.html',{'form':form})
 
-
 def musics_list(request,id):
-    category =  Category.objects.get(id=id)
+    category = Category.objects.get(id=id)
     musics = Music.objects.filter(category=category)
- 
-    ctx={
-        "category":category,
-        "musics":musics
+    comments = Comment.objects.filter(id =id)
+    print(musics)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.photo = category
+            comment.user = request.user.profile
+            # comment.save(comments)
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = CommentForm()
+    params = {
+        'musics': musics,
+        'form': form,
+        'comments':comments,
+        'category':category
     }
-    return render(request,'category_musics.html',ctx)
+    
+    return render(request,'category_musics.html',params)
 
 def music_update(request,id):
     music=Music.objects.get(id=id)
     category = Category.objects.filter(name=music.category)
     print(music)
-    
     
     form = MusicForm(instance=music)
     if request.method == 'POST':
@@ -71,7 +80,6 @@ def music_update(request,id):
             post.save()
         return redirect('musics_list',id=music.category_id)
   
-
     return render(request,'update_music.html',{'form':form})
     
 def music_delete(request,id):
@@ -82,8 +90,6 @@ def music_delete(request,id):
     
     return redirect('musics_list',id=music.category_id)
   
-   
-
 @login_required(login_url='/accounts/login/')
 def create_profile(request):
     current_user = request.user
@@ -103,7 +109,6 @@ def create_profile(request):
 @login_required(login_url='/accounts/login/')
 def profile(request,username):
  
-    
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -121,14 +126,11 @@ def profile(request,username):
     }
     return render(request, 'profile.html',params)
 
-
-
 class ProfileList(APIView):
     def get(self, request, format=None):
         all_profiles = Profile.objects.all()
         serializers = ProfileSerializer(all_profiles, many=True)
         return Response(serializers.data)
-
 
 def add_category(request):
     if request.method == 'POST':
@@ -159,8 +161,6 @@ def add_music(request, category):
         form = MusicForm()
         return render(request, 'post.html', {'form': form})
 
-
-
 def delete_music(request, music):
     current_music=Music.objects.get(id=music)
     category=current_music.category
@@ -186,7 +186,26 @@ def edit_music(request, music):
         form = MusicForm(initial={'title': editting_music.title, 'notes': editting_music.notes})
         return render(request, 'add-music.html', {'form': form, "page_title": page_title})
 
+@login_required(login_url='/accounts/login/')
+def unfollow(request, to_unfollow):
+    if request.method == 'GET':
+        user_two_profile = Profile.objects.get(pk=to_unfollow)
+        unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_two_profile)
+        unfollow_d.delete()
+        return redirect('user_profile', user_two_profile.user.username)
+
+@login_required(login_url='/accounts/login/')
+def follow(request, to_follow):
+    if request.method == 'GET':
+        user_three_profile = Profile.objects.get(pk=to_follow)
+        follow_s = Follow(follower=request.user.profile, followed=user_three_profile)
+        follow_s.save()
+        return redirect('user_profile', user_three_profile.user.username)
+
 def logout(request):
     logout(request)
     return redirect('login')
 
+def video(request):
+    object = Item.objects.all()
+    return render(request,'video.html',{'object':object})
