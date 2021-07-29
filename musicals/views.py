@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Music, Profile,Category,Comment,Follow,Item
+from .models import *
 from .forms import ProfileForm,MusicForm,UpdateUserProfileForm,UpdateUserForm,CategoryForm,CommentForm
 from django.contrib.auth.models import User
 from rest_framework.response import Response
@@ -208,4 +208,15 @@ def logout(request):
 
 def video(request):
     object = Item.objects.all()
-    return render(request,'video.html',{'object':object})
+    listtobe = []
+    for i in object:
+        x = i.video.split('/')
+        z = x[-1]
+        y = i.author
+        listtobe.append({'author':y, 'yt_id':z})
+        
+
+
+    return render(request,'video.html',{'listtobe':listtobe})
+
+    

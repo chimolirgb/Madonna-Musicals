@@ -3,9 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
-from cloudinary.models import CloudinaryField 
-from embed_video.fields import EmbedVideoField
-
+from cloudinary.models import CloudinaryField
+from embed_video.fields import EmbedVideoField 
 
 # Create your models here.
 class Profile(models.Model):
@@ -40,6 +39,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
@@ -58,6 +58,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Music(models.Model):
     user = models.ForeignKey('Profile', on_delete=models.CASCADE,related_name='music')
     title = models.CharField(max_length=50)
@@ -67,6 +68,7 @@ class Music(models.Model):
     modified = models.DateTimeField(auto_now=True)
     category= models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
   
+
     class Meta:
         ordering = ["-pk"]
         
@@ -98,5 +100,9 @@ class Follow(models.Model):
     def __str__(self):
         return f'{self.follower} Follow'
 
-class Item(models.Model):
+class Item(models.Model): 
     video = EmbedVideoField() 
+    author = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.author} Item'
