@@ -1,42 +1,54 @@
-{% load static%}
-{% load bootstrap4%}
+{% load static%} {% load bootstrap4%}
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Mali"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    {% if title %}
+    <title>Music! - {{title}}</title>
+    {% else %}
+    <title>Music</title>
+    {% endif %} {% block styles %} {% bootstrap_css %} {% endblock %}
+  </head>
 
-  <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
-
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-  {% if title %}
-  <title>Music! - {{title}}</title>
-  {% else %}
-    <title> Music </title>
-  {% endif %}
-  {% block styles %}
-    {% bootstrap_css %}
-  {% endblock %}
-
-</head>
-<body style="background-color: #DCDCDC; font-family: 'Dancing Script', cursive;">
-    {% include "navbar.html" %}
-    {% block content %}  {%endblock%}
-    {% block scripts %}
+  <body
+    style="
+      background-image: url(../static/images/landingf.jpeg);
+      font-family: 'Dancing Script', cursive;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    "
+  >
+    {% include "navbar.html" %} {% block content %} {%endblock%} {% block
+    scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
- {% bootstrap_javascript %}
- <script>
-    $(document).ready(function(){
-        $("#but").click(function(){
-            $("#but").toggle(100);
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    {% bootstrap_javascript %}
+    <script>
+      $(document).ready(function () {
+        $("#but").click(function () {
+          $("#but").toggle(100);
         });
-    });
+      });
     </script>
-{% endblock %}
-</body>
+  </body>
 </html>

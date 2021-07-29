@@ -1,102 +1,133 @@
 <nav class="navbar navbar-expand-lg">
-    <div>
-      <a class="navbar-brand" href="/"> Music</a>
-    </div>
-  
-    <div>
-      <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
-    </div>
-  
-    <div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="text-white">
-          <i class="fas fa-bars"></i>
-        </span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-  
-          {% if user.is_authenticated %}
-  
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle mr-4"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              {{user}}
-            </a>
-            <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
-              <a href="{% url 'profile' user.username %}" style="color: inherit"
-                >Profile</a
-              >
-              <div class="dropdown-divider"></div>
-              <a href="/accounts/password_change" style="color: inherit"
-                >Change Password</a
-              >
-              <div class="dropdown-divider"></div>
-              <a href="/accounts/logout" style="color: inherit">Logout</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              style="text-transform: capitalize"
-              href="{%url 'post'%}"
-              >Upload New Music</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              style="text-transform: capitalize"
-              href="{%url 'category'%}"
-              >Add Category</a
-            >
+  <div>
+    <a class="navbar-brand" style="color: white" href="/"> Music</a>
+  </div>
 
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              style="text-transform: capitalize"
-              href="{%url 'video'%}"
-              >Upload New Video</a
-            > 
-          </li>
-          {% else %}
-          <a class="btn btn-default" href="/accounts/login">
-            <p>Login</p>
+  <div>
+    <form class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        style="font: xx-large"
+      />
+      <button
+        style="font-size: xx-large; color: white"
+        class="btn btn-outline-primary my-2 my-sm-0"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+
+  <div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="text-white">
+        <i class="fas fa-bars"></i>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a
+            style="
+              font: xxxxxxxx-large;
+              font-weight: 900;
+              font: 1500;
+              color: white;
+              font-size: xx-large;
+            "
+            class="nav-link"
+            href="/"
+            >Home <span class="sr-only">(current)</span>
           </a>
-          {% endif %}
-        </ul>
-      </div>
+        </li>
+
+        {% if user.is_authenticated %}
+
+        <li class="nav-item dropdown">
+          <a
+            style="color: white; font-size: xx-large"
+            class="nav-link dropdown-toggle mr-4"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{user}}
+          </a>
+          <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
+            <a
+              href="{% url 'profile' user.username %}"
+              style="color: white; font-size: xx-large"
+              >Profile</a
+            >
+            <div class="dropdown-divider"></div>
+            <a
+              href="/accounts/password_change"
+              style="color: white; font-size: xx-large"
+              >Change Password</a
+            >
+            <div class="dropdown-divider"></div>
+            <a href="/accounts/logout" style="color: white; font-size: xx-large"
+              >Logout</a
+            >
+          </div>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="
+              color: white;
+              font-size: xx-large;
+              text-transform: capitalize;
+            "
+            href="{%url 'post'%}"
+            >Upload New Images</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="
+              color: white;
+              font-size: xx-large;
+              text-transform: capitalize;
+            "
+            href="{%url 'category'%}"
+            >Add Category</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="
+              color: white;
+              font-size: xx-large;
+              text-transform: capitalize;
+            "
+            href="{%url 'video'%}"
+            >Upload New Video</a
+          >
+        </li>
+        {% else %}
+        <a class="btn btn-default" href="/accounts/login">
+          <p>Login</p>
+        </a>
+        {% endif %}
+      </ul>
     </div>
-  </nav>
-  
+  </div>
+</nav>

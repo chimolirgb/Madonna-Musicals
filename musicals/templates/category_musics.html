@@ -5,64 +5,56 @@
 
 <div class="container-fluid m-5">
     <h2 class="text-center ">{{category.name}}</h2>
-     <div class="row m-5">
+    <div class="row m-5">
         {% for music in musics  %}
         <div class=" col-md-4 card-container">
-    <div class="box">
-        <div class="imgBx">
-            <img src="{{music.photo.url}}" alt="">
-        </div>
-        <div class="content">
-            <h4>{{music.title}}?</h4>
-            <p>{{music.content}}</p>
-            <br>
-            <span>Add on :{{music.posted.date}}</span>
-            <br>
-            <span>Last Updated:{{music.modified.date}}</span>
-            <span>Follow:{{music.modified.count}}</span>
-         
-            <div class="mt-5">
-                <a href="{%url 'music_update' music.id%}"  class="btn btn-primary ml-2"> Update</a>
-                <a href="{%url 'music_delete' music.id%}"  class="btn btn-danger"> Delete</a>
-                <a href="{%url 'follow' music.id%}"  class="btn btn-success ml-2"> Follow</a>
-                
-            </div>
-            <form
-            class="form"
-            action=""
-            method="post"
-            novalidate
-            enctype="multipart/form-data"
-          >
-          {% for comment in comments %}
-          <div>
-          </form>
-            {% for comment in comments %}
-            <div>
-                <div class="ml-2"><strong>{{ comment.user.user.username }} :</strong> <span
+            <div class="card">
+                <div class="card-body">
+                    <img src="{{music.photo.url}}" alt="">
+                    <div class="content">
+                        <h4>{{music.title}}?</h4>
+                        <p>{{music.content}}</p>
+                        <br>
+                        <span>Add on :{{music.posted.date}}</span>
+                        <br>
+                        <span>Last Updated:{{music.modified.date}}</span>
+                        <span>Follow:{{music.modified.count}}</span>
+                        <div class="mt-5">
+                            <a href="{%url 'music_update' music.id%}"  class="btn btn-primary ml-2"> Update</a>
+                            <a href="{%url 'music_delete' music.id%}"  class="btn btn-danger"> Delete</a>
+                            <a href="{%url 'follow' music.id%}"  class="btn btn-success ml-2"> Follow</a>
+                        </div>  
+                        <form
+                            class="form"
+                            action=""
+                            method="post"
+                            novalidate
+                            enctype="multipart/form-data"
+                            >
+                            {%  for comment in comments %}
+                            <div>
+                        </form>
+                        {% for comment in comments %}
+                        <div class="ml-2"><strong>{{ comment.user.user.username }} :</strong> <span
+                            class="text-secondary">{{ comment.comment }}</span>
+                        </div>
+                        {% endfor %}v class="ml-2"><strong>{{ comment.user.user.username }} :</strong> <span
                         class="text-secondary">{{ comment.comment }}</span>
+                        {% empty %}
+                        <p class="ml-3">No comments here yet</p>
+                        {% endfor %}
+                    </div>
+                        <form class="form" action="" method="post" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form layout='block' %}
+                        <button type="submit" class="btn btn-sm btn-info" style="margin-top:10px; margin-left:5px">Comment</button>
+                        </form>
                 </div>
             </div>
-            {% endfor %}v class="ml-2"><strong>{{ comment.user.user.username }} :</strong> <span
-                      class="text-secondary">{{ comment.comment }}</span>
-              </div>
-          </div>
-          {% empty %}
-          <p class="ml-3">No comments here yet</p>
-          {% endfor %}
         </div>
-        <form class="form" action="" method="post" novalidate enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form layout='block' %}
-            <button type="submit" class="btn btn-sm btn-info" style="margin-top:10px; margin-left:5px">Comment</button>
-        </form>
     </div>
-</div>
         {%empty%}
         <h4 class="text-center">There are no songs in this category at the momement</h4>
-     
         {% endfor %}
-    </div> 
-</div>
-  {% endblock %}
+        {% endblock %}
 </div>

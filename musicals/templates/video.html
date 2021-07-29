@@ -1,15 +1,21 @@
-{% extends 'base.html' %} {% load bootstrap4 %} {%load static%}
-{% load embed_video_tags %}
-{% block content %}
-    <h1>My Videos</h1>
-    {% for listobject in listtobe %}
-    <p>{{ listobject.author }}</p>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ listobject.yt_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   
-    <video width='320' height= '240' controls>
-        <source src="{{ i.video }}">
-        Your browser does not support the video tag.
-    </video>
-    
-    {%endfor%}
-{%endblock%}
+{% extends 'base.html' %} {% load bootstrap4 %} {%load static%} {% load
+embed_video_tags %} {% block content %}
+<h1>My Videos</h1>
+{% for listobject in listtobe %}
+<p>{{ listobject.author }}</p>
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/{{ listobject.yt_id }}"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+<video width="220" height="200" controls>
+  <source src="{{ i.video }}" />
+  Your browser does not support the video tag.
+</video>
+
+{%endfor%} {%endblock%}
